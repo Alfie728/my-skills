@@ -1,0 +1,4 @@
+interface:
+  display_name: "write-a-prd"
+  short_description: "Draft a PRD from discovery through design"
+  default_prompt: "Use $write-a-prd to turn this feature idea into a reviewable PRD."

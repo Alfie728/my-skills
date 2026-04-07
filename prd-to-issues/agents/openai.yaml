@@ -1,0 +1,4 @@
+interface:
+  display_name: "prd-to-issues"
+  short_description: "Turn a PRD into executable Linear work"
+  default_prompt: "Use $prd-to-issues to break this approved PRD into parent, epic, and story issues."

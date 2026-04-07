@@ -1,0 +1,4 @@
+interface:
+  display_name: "improve-codebase-architecture"
+  short_description: "Find deep-module refactors in a codebase"
+  default_prompt: "Use $improve-codebase-architecture to identify and compare deep-module refactors for this area."

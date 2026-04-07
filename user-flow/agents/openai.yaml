@@ -1,0 +1,4 @@
+interface:
+  display_name: "user-flow"
+  short_description: "Produce a user flow doc for business alignment"
+  default_prompt: "Use $user-flow to draft a non-technical user flow doc for this feature so it can be approved before architecture."

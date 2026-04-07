@@ -1,0 +1,4 @@
+interface:
+  display_name: "pr-triage"
+  short_description: "Filter and address PR review comments before merge"
+  default_prompt: "Use $pr-triage to pull every review comment on the current branch's PR, classify which are valid versus AI-bot noise, and prepare a reviewable triage report."

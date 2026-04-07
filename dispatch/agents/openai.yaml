@@ -1,0 +1,4 @@
+interface:
+  display_name: "dispatch"
+  short_description: "Equip, expand, and route a task through the pipeline"
+  default_prompt: "Use $dispatch to equip the missing tools, expand this lazy prompt, and route it to the right pipeline skill."

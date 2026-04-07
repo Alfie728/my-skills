@@ -1,0 +1,4 @@
+interface:
+  display_name: "arch-brief"
+  short_description: "Produce a Slack-sized architecture brief"
+  default_prompt: "Use $arch-brief to draft a scannable architecture write-up for this approved user flow."

@@ -1,0 +1,103 @@
+---
+name: arch-brief
+description: Draft a scannable architecture brief for Slack after the user flow is approved. Use when the user wants an architectural write-up, needs to align the team on an approach, or is deciding whether a huddle is needed before building.
+argument-hint: <feature-name>
+metadata:
+  short-description: Produce a Slack-sized architecture brief
+---
+
+# Architecture Brief
+
+IMPORTANT: Never auto-commit. Never auto-post to Slack without showing the brief and getting confirmation first.
+
+## When To Use
+
+After the user flow doc is approved by business. Before issue breakdown. This is a short, scannable write-up posted to Slack so the whole team has visibility on the approach.
+
+Must fit in a Slack message. Granular detail belongs in sub-issues, not in the brief.
+
+## Process
+
+1. Ask for or pull the approved user flow doc from context. If the user flow hasn't been done yet, suggest `$user-flow` first.
+
+2. Explore the codebase to ground the architecture:
+   - Existing models and workflows relevant to the feature
+   - Patterns worth following
+   - Integration points and system interactions
+   - Reusable modules or scaffolding
+
+3. Sketch the approach. Look for opportunities to deepen modules behind simple interfaces.
+
+4. Draft the brief using the template below. Keep it brutally short — the whole point is scannability.
+
+5. Present for review. Iterate until the brief is short, clear, and decisive.
+
+6. Decide whether a huddle is warranted:
+   - Complex extensibility tradeoffs → huddle
+   - Touches multiple owners or surface areas → huddle
+   - Non-obvious system interactions → huddle
+   - Straightforward approach with clear patterns → no huddle
+
+   If a huddle is needed, suggest which people to pull in.
+
+7. After approval, format the brief for Slack posting.
+
+8. Wait for the user's explicit "post it" confirmation before sending anything.
+
+9. Suggest `$prd-to-issues` as the next step once team alignment is confirmed.
+
+## Template
+
+<arch-brief-template>
+
+# <Feature Name> — Architecture
+
+## Approach
+
+2 to 3 sentences in plain English describing how we'll build this. No code, no full interfaces. Enough for a teammate to nod or push back.
+
+## Key Changes
+
+Bullet list of the main modules, services, or layers being added or modified. One line each.
+
+- **<Module or layer>** — <what it does>
+- **<Module or layer>** — <what it does>
+
+## Tradeoffs
+
+What we are choosing and why. What we considered and rejected.
+
+- **Chose:** <approach>. **Instead of:** <alternative>. **Because:** <reason>.
+- **Chose:** <approach>. **Instead of:** <alternative>. **Because:** <reason>.
+
+## Extensibility
+
+One or two lines on what this enables for future work and what it locks us out of.
+
+## Risks And Open Questions
+
+Things that could derail us or need more thought before we commit.
+
+- <Risk or question>
+- <Risk or question>
+
+## Huddle Recommendation
+
+- **Needed:** Yes / No
+- **If yes, who:** <names or roles>
+- **Why:** <reason>
+
+</arch-brief-template>
+
+## Quality Checks
+
+- Fits comfortably in a Slack message without scroll fatigue
+- A teammate can scan the whole thing in under 2 minutes
+- No file paths, no code snippets, no schema, no function names
+- Tradeoffs are explicit and include the alternative that was rejected
+- Huddle recommendation is decisive, not "maybe we should talk"
+- Extensibility section is honest about what gets locked out
+
+## Next Step
+
+After team alignment (async or via huddle), suggest `$prd-to-issues` to break the work into Linear issues with workspace sequencing.
