@@ -26,6 +26,8 @@ Must fit in a Slack message. Granular detail belongs in sub-issues, not in the b
    - Integration points and system interactions
    - Reusable modules or scaffolding
 
+   While exploring, watch for architectural friction: shallow modules with leaky interfaces, tight coupling across boundaries, or areas where the new feature would have to work around existing messiness. If significant friction is found, pause and suggest `$improve-codebase-architecture` before designing approaches — the right approach for the feature may depend on cleaning up the foundation first.
+
 3. Design at least 2–3 materially different approaches. For each one:
    - Describe the approach in 1–2 sentences
    - List concrete pros (performance, simplicity, extensibility, reuse)
