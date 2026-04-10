@@ -38,7 +38,12 @@ It IS:
    - What problem are we solving from the user's perspective?
    - Is there a kickoff notes doc, Slack thread, or Linear ticket to pull from?
 
-2. Interview briefly to resolve gaps. Keep it lightweight — this is not `$grill-me`. Only ask what you need to draft the flow.
+2. Interview briefly to resolve gaps. Keep it lightweight — this is not `$grill-me`. Cover:
+   - What problem are we solving from the user's perspective?
+   - Who are the actors and what do they want?
+   - Why is this the right time to build it? (business context, cost of delay)
+   - How will we know it worked? (success metrics — be specific, not vague)
+   - What is explicitly out of scope?
 
 3. Explore the codebase only if you need to verify where this feature fits in the existing system. Do not go deep into implementation.
 
@@ -53,7 +58,9 @@ It IS:
 
 7. Wait for the user's explicit "post it" confirmation before sending anything. If Linear MCP or Slack tools are in scope, the user must approve before any write action.
 
-8. Once business alignment is confirmed, suggest `$arch-brief` as the next step.
+8. After posting, save the doc to Linear as a project description or issue description — this becomes the persistent record that `$arch-brief` will reference in a future session.
+
+9. Once business alignment is confirmed, suggest `$arch-brief` as the next step.
 
 ## Template
 

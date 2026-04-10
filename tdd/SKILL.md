@@ -39,24 +39,23 @@ Agents go off rails. The eval set is the data that proves they don't.
 
 Read [`evals.md`](evals.md) for the full protocol. The loop is:
 
-1. **Define behaviors and failure modes.** Before writing any prompt, list:
-   - What the agent must always do
-   - What it must never do
-   - The hardest realistic inputs
-   - The dumbest realistic inputs
-   - Adversarial inputs (jailbreaks, injection, ambiguous requests)
+1. **Error analysis first.** Run the system (or a throwaway prompt) against 20-30 realistic inputs and look at what it actually produces. Do not skip this. You cannot write a good dataset without seeing real failures.
 
-2. **Build a golden dataset.** 10-30 examples to start. Each row: input, expected behavior or expected output, grading criteria. This is your tracer bullet for non-deterministic systems.
+2. **Open-code the failures.** For each bad output, write a free-text label describing exactly what went wrong. No predefined buckets yet — just specific observations.
 
-3. **Write the eval harness before the prompt.** Run, expect failure, see the failure mode. This is your RED.
+3. **Build a failure taxonomy.** Cluster the labels into 5-10 distinct failure categories. These become the dimensions you measure.
 
-4. **Tune the prompt or agent.** Make the change. Re-run the full eval set, not just one example. This is your GREEN.
+4. **Build a golden dataset** around the failure modes. 10-30 examples to start. Each row: input, failure category, expected behavior, grading criteria. Dataset is a versioned file committed to the repo — not a notebook.
 
-5. **Track scores between iterations.** Save each run. If a tuning step regresses earlier examples, that is a real failure — fix or accept the tradeoff explicitly.
+5. **Write the eval harness before the prompt.** Run, expect failure, confirm you can see the failure. This is your RED.
 
-6. **Lock in the dataset before merging.** New examples that surface during tuning go into the dataset. The dataset only grows; it does not get pruned to make scores look better.
+6. **Tune the prompt or agent.** One focused change at a time. Re-run the full eval set, not just the failing ones. This is your GREEN.
 
-7. **Set a quality bar.** What pass rate is shippable? Get the user's commitment up front, not after the run.
+7. **Compare per-category scores between runs.** Never look at aggregate averages alone. A 90% overall score hiding a 40% pass rate in one category is a shipping bug.
+
+8. **Dataset only grows.** New failures found during tuning go in. Never delete examples to make scores look better.
+
+9. **Set and defend a quality bar per category.** Get the user's commitment before tuning starts — not after the run.
 
 ### Eval QA & Close
 
@@ -135,7 +134,7 @@ Rules:
 - No speculative features
 - Keep tests focused on observable behavior
 
-For non-trivial GREEN steps involving state, async work, persistence, auth, or complex transforms, do an extra verification pass before moving on.
+For non-trivial GREEN steps involving state, async work, persistence, auth, or complex transforms, invoke `$cove` for an independent verification pass before moving on.
 
 ### 4. Refactor
 
@@ -155,8 +154,8 @@ When working from a Linear story:
 - Verify every acceptance criterion
 - Run the relevant broader test suite for regressions
 - For agent / LLM work, run the full eval set and confirm the pass rate meets the agreed bar
-- If the criteria are satisfied, update the story status
-- If this was the last story in an epic, mention that the epic may now be closable
+- If the criteria are satisfied, update the story status to Done
+- If this was the last story in an epic, mention that the epic may now be closable and check if the parent can close too
 
 Once the branch has an open PR and review comments come in, suggest `$pr-triage` to filter AI reviewer noise, address valid comments locally, and close out the review round before merge. This is the final step before the cycle closes.
 

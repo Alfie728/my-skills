@@ -54,7 +54,9 @@ Must fit in a Slack message. Granular detail belongs in `$write-a-prd` and sub-i
 
 9. Wait for the user's explicit "post it" confirmation before sending anything.
 
-10. Suggest `$write-a-prd` as the next step once team alignment is confirmed — the full engineering spec lives there.
+10. After posting, save the brief to Linear alongside the user-flow doc (as a comment on the parent issue or project description) — this becomes the persistent record that `$write-a-prd` will reference in a future session.
+
+11. Suggest `$write-a-prd` as the next step once team alignment is confirmed — the full engineering spec lives there.
 
 ## Template
 

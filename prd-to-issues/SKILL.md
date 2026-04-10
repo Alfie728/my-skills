@@ -62,6 +62,9 @@ Each story should include:
 
 Prefer AFK slices over HITL slices where possible.
 
+> **AFK** (Away From Keyboard) = fully autonomous agent work, no human approval needed mid-task.
+> **HITL** (Human In The Loop) = requires a human checkpoint before the agent proceeds (e.g., schema migrations, third-party API calls, irreversible state changes).
+
 ### 5. Design the Dependency Graph
 
 Build a clear DAG:
@@ -81,7 +84,7 @@ Show a numbered list of proposed epics. For each epic include:
 - Workspace number
 - Blocked by
 - Stories
-- User stories covered
+- Acceptance criteria covered (from the engineering PRD)
 - Estimate
 
 Ask the user to confirm:

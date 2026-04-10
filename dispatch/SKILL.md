@@ -16,7 +16,7 @@ Extends the host agent's native skill dispatch with three capabilities:
 
 1. **Skill & MCP Discovery** — Find and install skills/MCP servers you're missing
 2. **Lazy Prompt Expansion** — Turn vague requests into actionable specs
-3. **Pipeline Routing** — Detect deterministic vs agent work, then route to the right skill (`$grill-me`, `$user-flow`, `$arch-brief`, `$write-a-prd`, `$prd-to-issues`, `$tdd` standard or eval mode, `$cove`)
+3. **Pipeline Routing** — Detect deterministic vs agent work, then route to the right skill (`$grill-me`, `$user-flow`, `$arch-brief`, `$improve-codebase-architecture`, `$write-a-prd`, `$prd-to-issues`, `$tdd` standard or eval mode, `$cove`, `$ralph-loop`, `$pr-triage`)
 
 You are NOT replacing the host agent's built-in skill system. You are layering on top of it.
 
@@ -240,7 +240,7 @@ npx skills find [keyword]
 $dispatch [task]
     │
     ├─ PHASE 1: EQUIP
-    │   ├─ Search skills.sh for uninstalled skills → install
+    │   ├─ Search for uninstalled skills (npx skills find) → install
     │   ├─ Detect missing MCP servers → install
     │   └─ Create project config if missing
     │
