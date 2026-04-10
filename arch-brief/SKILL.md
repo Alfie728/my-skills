@@ -26,13 +26,21 @@ Must fit in a Slack message. Granular detail belongs in sub-issues, not in the b
    - Integration points and system interactions
    - Reusable modules or scaffolding
 
-3. Sketch the approach. Look for opportunities to deepen modules behind simple interfaces.
+3. Design at least 2–3 materially different approaches. For each one:
+   - Describe the approach in 1–2 sentences
+   - List concrete pros (performance, simplicity, extensibility, reuse)
+   - List concrete cons (complexity, coupling, migration cost, lock-in)
+   - Note any open questions or unknowns that would change the recommendation
 
-4. Draft the brief using the template below. Keep it brutally short — the whole point is scannability.
+   Do not pick an approach yet. Present all options and ask the user which direction to commit to, or give a recommendation and ask for confirmation.
 
-5. Present for review. Iterate until the brief is short, clear, and decisive.
+4. Agree on the approach before drafting anything. If the user asks for a hybrid, propose it explicitly.
 
-6. Decide whether a huddle is warranted:
+5. Draft the brief using the template below. The chosen approach becomes the "Approach" section; the rejected alternatives become the "Tradeoffs" section. Keep it brutally short — the whole point is scannability.
+
+6. Present for review. Iterate until the brief is short, clear, and decisive.
+
+7. Decide whether a huddle is warranted:
    - Complex extensibility tradeoffs → huddle
    - Touches multiple owners or surface areas → huddle
    - Non-obvious system interactions → huddle
@@ -40,11 +48,11 @@ Must fit in a Slack message. Granular detail belongs in sub-issues, not in the b
 
    If a huddle is needed, suggest which people to pull in.
 
-7. After approval, format the brief for Slack posting.
+8. After approval, format the brief for Slack posting.
 
-8. Wait for the user's explicit "post it" confirmation before sending anything.
+9. Wait for the user's explicit "post it" confirmation before sending anything.
 
-9. Suggest `$write-a-prd` as the next step once team alignment is confirmed — the full engineering spec lives there.
+10. Suggest `$write-a-prd` as the next step once team alignment is confirmed — the full engineering spec lives there.
 
 ## Template
 
