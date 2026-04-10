@@ -1,3 +1,11 @@
+---
+name: daily-updates
+description: Generate Alfie's daily work update for Rovi Health by pulling PRs, Linear tickets, Slack messages, and Conductor sessions, then drafting a concise standup summary for Tarun. Use when writing or sending a daily update.
+argument-hint: "[date or 'today']"
+metadata:
+  short-description: Draft the daily work update for Tarun
+---
+
 # Daily Update Skill Spec
 
 Guidelines for generating Alfie's daily work update for Rovi Health.

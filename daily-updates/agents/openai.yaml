@@ -1,0 +1,4 @@
+interface:
+  display_name: "daily-updates"
+  short_description: "Draft the daily work update for Tarun"
+  default_prompt: "Use $daily-updates to pull today's PRs, Linear tickets, Slack messages, and Conductor sessions, then draft the daily standup update."
