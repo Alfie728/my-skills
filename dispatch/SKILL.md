@@ -166,6 +166,7 @@ Route the expanded task to the appropriate pipeline skill based on the dev cycle
 | Idea needs stress-testing before any docs | Pre-alignment | `$grill-me` |
 | Mon/Tue: need a user flow doc for business approval | Alignment 1 | `$user-flow` |
 | User flow approved, need architecture brief for Slack | Alignment 2 | `$arch-brief` |
+| Codebase has architectural friction blocking a clean approach | Architecture | `$improve-codebase-architecture` |
 | Arch brief approved, need full engineering spec | Spec | `$write-a-prd` |
 | Dev PRD ready, need to break into Linear issues | Issue breakdown | `$prd-to-issues` |
 | **Deterministic** implementation with tests | Build | `$tdd` (applies `$cove` for non-trivial GREEN steps) |
@@ -173,21 +174,21 @@ Route the expanded task to the appropriate pipeline skill based on the dev cycle
 | **Hybrid** (agent + deterministic plumbing) | Build | `$tdd` — apply both loops in the same story |
 | Standalone non-trivial code generation | Build | `$cove` directly |
 | Large autonomous task (10+ files, full feature) | Build | `$ralph-loop` |
-| Open PR has accumulated AI reviewer comments to triage | Build / cleanup | `$pr-triage` |
+| Open PR has review comments to triage before merge | Merge | `$pr-triage` |
 | Trivial one-liners, formatting, docs | — | Just do it — no routing needed |
 
 **Hard rule for agent work:** `$tdd` in eval mode is **not optional**. Per the team's dev cycle, every agent build includes prompt tuning + eval testing as part of the estimate from day one. Never route agent work to plain `$tdd` or `$cove` without flagging the eval requirement.
 
 **The full pipeline:**
 ```
-$grill-me → $user-flow → $arch-brief → $write-a-prd → $prd-to-issues → $tdd [issue-id]
-   idea      Mon-Tue:     Mon-Tue:       Tue:            Tue:            Wed-Fri:
+$grill-me → $user-flow → $arch-brief → $write-a-prd → $prd-to-issues → $tdd [issue-id] → $pr-triage → merge
+   idea      Mon-Tue:     Mon-Tue:       Tue:            Tue:            Wed-Fri:           before merge
               flow doc     arch brief    full eng spec   Linear epics    │
               (business    (team         (schemas, API   + stories       ├─ Deterministic → red-green-refactor
               approval)    alignment)    contracts,                      │                  + $cove on tricky GREEN
                                          module design)                  │
-                                                                         └─ Agent / LLM   → eval-driven loop
-                                                                                           (golden dataset,
+                        ↕ if arch friction                               └─ Agent / LLM   → eval-driven loop
+                        $improve-codebase-architecture                                      (golden dataset,
                                                                                             quality bar,
                                                                                             regression tracking)
 ```
@@ -248,17 +249,18 @@ $dispatch [task]
     │   └─ Detect task type: deterministic / agent / hybrid
     │
     └─ PHASE 3: ROUTE
-        ├─ $grill-me           → stress-test the idea
-        ├─ $user-flow          → Mon-Tue: non-technical flow doc for business approval
-        ├─ $arch-brief         → Mon-Tue: Slack-sized architecture brief for team alignment
-        ├─ $write-a-prd        → full engineering spec (schemas, API contracts, module design)
-        ├─ $prd-to-issues      → break dev PRD into Linear issues + workspace sequencing
-        ├─ $tdd (standard)     → deterministic code: red-green-refactor + $cove
-        ├─ $tdd (eval mode)    → agent / LLM work: golden dataset + quality bar (see tdd/evals.md)
-        ├─ $tdd (hybrid)       → both loops in the same story
-        ├─ $cove               → standalone verified code generation
-        ├─ $ralph-loop         → autonomous multi-file execution
-        └─ $pr-triage          → filter + address AI reviewer comments on the current PR
+        ├─ $grill-me                       → stress-test the idea
+        ├─ $user-flow                      → Mon-Tue: non-technical flow doc for business approval
+        ├─ $arch-brief                     → Mon-Tue: Slack-sized architecture brief for team alignment
+        ├─ $improve-codebase-architecture  → surface + fix architectural friction before spec work
+        ├─ $write-a-prd                    → full engineering spec (schemas, API contracts, module design)
+        ├─ $prd-to-issues                  → break dev PRD into Linear issues + workspace sequencing
+        ├─ $tdd (standard)                 → deterministic code: red-green-refactor + $cove
+        ├─ $tdd (eval mode)                → agent / LLM work: golden dataset + quality bar (see tdd/evals.md)
+        ├─ $tdd (hybrid)                   → both loops in the same story
+        ├─ $cove                           → standalone verified code generation
+        ├─ $ralph-loop                     → autonomous multi-file execution
+        └─ $pr-triage                      → filter AI reviewer noise, address valid comments, merge
 ```
 
 ---

@@ -12,9 +12,9 @@ IMPORTANT: Never auto-commit. Never auto-post to Slack without showing the brief
 
 ## When To Use
 
-After the user flow doc is approved by business. Before issue breakdown. This is a short, scannable write-up posted to Slack so the whole team has visibility on the approach.
+After the user flow doc is approved by business. Before the engineering spec (`$write-a-prd`) and issue breakdown. This is a short, scannable write-up posted to Slack so the whole team has visibility on the approach before any detailed spec work begins.
 
-Must fit in a Slack message. Granular detail belongs in sub-issues, not in the brief.
+Must fit in a Slack message. Granular detail belongs in `$write-a-prd` and sub-issues, not in the brief.
 
 ## Process
 

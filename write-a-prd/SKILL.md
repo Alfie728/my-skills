@@ -12,7 +12,9 @@ IMPORTANT: Never auto-commit. Never auto-submit to Linear without showing the PR
 
 ## When To Use
 
-After `$arch-brief` is approved and the team is aligned. Before `$prd-to-issues`. This is the full engineering spec — schemas, API contracts, module interfaces, data flow, and testing decisions. Leadership does not need to read this; it is written for the engineers building the feature.
+After `$arch-brief` is approved and the team is aligned. Before `$prd-to-issues`. This is the full engineering spec — schemas, API contracts, module interfaces, data flow, and testing decisions.
+
+The document uses a dual-audience format: the sections above the `---` divider (Problem Statement, Solution, User Stories) are readable by stakeholders who want more context than the arch-brief provides. The sections below the divider (Implementation Decisions, Testing Decisions) are for engineers only. The primary audience is the engineering team building the feature.
 
 ## Process
 

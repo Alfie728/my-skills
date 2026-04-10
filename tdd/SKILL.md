@@ -158,6 +158,8 @@ When working from a Linear story:
 - If the criteria are satisfied, update the story status
 - If this was the last story in an epic, mention that the epic may now be closable
 
+Once the branch has an open PR and review comments come in, suggest `$pr-triage` to filter AI reviewer noise, address valid comments locally, and close out the review round before merge. This is the final step before the cycle closes.
+
 ## Per-Cycle Checklist
 
 - Test describes behavior, not implementation
