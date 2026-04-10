@@ -1,6 +1,6 @@
 ---
 name: write-a-prd
-description: Write the full engineering PRD after arch-brief is approved — includes schemas, API contracts, module interfaces, and testing strategy. Use when the team is aligned on the approach and needs a complete technical spec before breaking work into Linear issues.
+description: Write the full engineering PRD after arch-brief is approved — includes acceptance criteria, schema, API contracts, module design, and testing strategy. Use when the team is aligned on the approach and needs a complete technical spec before breaking work into Linear issues.
 argument-hint: <feature-or-problem>
 metadata:
   short-description: Full engineering spec after arch-brief approval
@@ -12,17 +12,15 @@ IMPORTANT: Never auto-commit. Never auto-submit to Linear without showing the PR
 
 ## When To Use
 
-After `$arch-brief` is approved and the team is aligned. Before `$prd-to-issues`. This is the full engineering spec — schemas, API contracts, module interfaces, data flow, and testing decisions.
-
-The document uses a dual-audience format: the sections above the `---` divider (Problem Statement, Solution, User Stories) are readable by stakeholders who want more context than the arch-brief provides. The sections below the divider (Implementation Decisions, Testing Decisions) are for engineers only. The primary audience is the engineering team building the feature.
+After `$arch-brief` is approved and the team is aligned. Before `$prd-to-issues`. This is a purely engineering-facing document — schema, API contracts, module interfaces, acceptance criteria, and testing decisions. Stakeholders and leadership read the `$user-flow` doc; they do not read this.
 
 ## Process
 
 1. Pull in the approved `$arch-brief` from context. If no arch-brief exists yet, suggest `$arch-brief` first.
 2. Explore the repo to verify assumptions: existing models, APIs, patterns, and integration points.
-3. Interview the user until all implementation branches are resolved — especially schema decisions, interface contracts, and testing strategy.
-4. Sketch the major modules that will need to be built or changed. Look for deep modules with simple interfaces and testable boundaries.
-5. Confirm the module boundaries and ask which modules deserve focused testing.
+3. Interview the user until all implementation branches are resolved — schema decisions, interface contracts, auth requirements, and testing strategy.
+4. Design the module boundaries. Look for deep modules with simple interfaces and testable seams.
+5. Resolve all open technical questions before drafting. Unresolved questions block issue breakdown.
 6. Ask where the PRD should live in Linear:
    - New Linear project
    - Existing Linear project
@@ -33,84 +31,105 @@ The document uses a dual-audience format: the sections above the `---` divider (
 9. Present the PRD for review. After approval, use Linear MCP tools or the Linear CLI to create or update the destination item.
 10. After submission, suggest `$prd-to-issues` to break the work into epics and stories.
 
-## PRD Structure
-
-The PRD is for two audiences:
-
-- Stakeholders read top-down and stop at the `---` divider.
-- Engineers continue past the divider into the implementation sections.
-
-Keep the sections above the divider free of schema names, enum values, database columns, and code-level detail.
+## PRD Template
 
 <prd-template>
 
-## Problem Statement
+## Feature Context
 
-The problem from the user's perspective.
+Reference the approved user-flow doc and arch-brief. Engineers reading this should have already read both.
 
-## Context: How We Get Here
+One paragraph framing what is being built and why — in engineering terms.
 
-A mermaid sequence diagram showing the journey that leads into this feature.
+## Acceptance Criteria
 
-Follow with 2-3 sentences of plain-language narrative using concrete examples.
+A numbered, concrete, testable list of behaviors that define "done". Each criterion should be directly mappable to a test.
 
-## Solution
+1. Given <state>, when <action>, then <observable outcome>
+2. Given <state>, when <action>, then <observable outcome>
 
-The solution from the user's perspective.
+## Data Model
 
-### Layout
+Schema changes, new tables/collections, field names, types, constraints, enums, indexes. Specific enough to implement from directly.
 
-If the feature has a UI, describe what the user sees and how information is organized.
+## API Contracts
 
-### Lifecycle
+For each new or modified endpoint, mutation, or subscription:
 
-If the feature has stateful objects, include a mermaid flowchart of user-visible states and transitions.
+- **Route / method**
+- **Request shape** — required fields, types, validation rules
+- **Response shape**
+- **Error conditions and codes**
+- **Auth requirements**
 
-### Interaction Flow
+## Module Design
 
-A mermaid sequence diagram of the primary happy path using realistic actions or dialogue.
+For each module to build or modify, a named section:
 
-### Statuses / States
+### <Module Name>
 
-If applicable, a simple table of user-visible states, meaning, and visual treatment.
+- **Interface** — public entry points, parameters, return types
+- **Responsibility** — what it owns, what it does not
+- **Dependencies** — what it calls; what calls it
+- **Hidden complexity** — what the interface conceals from callers
+- **Testable boundary** — where integration tests should pin behavior
 
-## User Stories
+## State Machine
 
-A long, numbered list of user stories in this format:
+If the feature has stateful domain objects, include a mermaid state diagram with guards, side effects, and external consequences:
 
-1. As an <actor>, I want a <feature>, so that <benefit>
+```mermaid
+stateDiagram-v2
+  [*] --> Draft
+  Draft --> Submitted : submit()
+  Submitted --> Approved : approve()
+  Submitted --> Rejected : reject()
+```
 
----
+If no stateful objects, skip this section.
 
-## Implementation Decisions
+## Integration Points
 
-The sections below are for engineering.
+- Which existing modules change and how
+- Which external services are called
+- Webhook triggers, event emissions, or background jobs
 
-Include:
+## Testing Strategy
 
-- Modules to build or modify, each as a named section
-- Interface changes
-- Architectural decisions
-- Schema or API changes
-- Technical clarifications
+- Which modules are highest-risk and need the deepest test coverage
+- What a good behavioral test looks like at the boundary for each high-risk module
+- Existing test patterns in the codebase to follow
+- For agent / LLM components: follow the eval-driven protocol in `tdd/evals.md`
 
-Do not include file paths or code snippets.
+## Security Considerations
 
-## Testing Decisions
+Skip if not applicable. If relevant, include:
 
-Include:
+- Auth and authz requirements
+- Input validation boundaries
+- Data that must not be exposed
+- Rate limiting or abuse vectors
 
-- What makes a good test for this feature
-- Which modules should be tested
-- Relevant test prior art in the codebase
-- Which modules deserve extra verification during implementation
+## Open Technical Questions
+
+Unresolved decisions that would change the design. These must be resolved before `$prd-to-issues`.
+
+- <Question 1>
+- <Question 2>
 
 ## Out of Scope
 
-A bulleted list of explicit non-goals with brief reasons.
+Explicit non-goals with brief reasons. If it is not listed here, it is in scope.
 
-## Further Notes
-
-Reusable patterns, existing components, and domain context engineers will need.
+- <Non-goal> — <why>
 
 </prd-template>
+
+## Quality Checks
+
+- No user-facing language, no stakeholder sections — this doc is for engineers only
+- Every acceptance criterion is testable without ambiguity
+- Every module section has an interface, a responsibility boundary, and a testable seam
+- Schema and API contracts are specific enough to implement from directly
+- All open technical questions are resolved before this doc is submitted to Linear
+- State machine includes guards and side effects, not just happy-path transitions

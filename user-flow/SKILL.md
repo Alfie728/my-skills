@@ -14,18 +14,21 @@ IMPORTANT: Never auto-commit. Never auto-post to Slack without showing the doc a
 
 After a kickoff call, before architecture. This doc is the gate that prevents building the wrong thing. It must be readable by a product lead or non-technical stakeholder.
 
+**This is leadership's complete view of the feature.** There is no stakeholder section in the engineering PRD — this doc carries the full responsibility for business alignment. If something important is missing here, leadership will not see it anywhere else.
+
 This is NOT:
 
 - A data model or schema
 - API design
 - Code architecture
-- A full PRD
+- An engineering spec
 
 It IS:
 
-- A simplified description of user flows
-- A high-level view of how the system works
-- Something a non-coder can read, understand, and iterate on
+- The definitive description of what users experience and why
+- The business case for building this now
+- The artifact leadership approves before any engineering begins
+- Something a non-coder can read, understand, and push back on
 
 ## Process
 
@@ -60,7 +63,11 @@ It IS:
 
 ## Problem
 
-2 to 3 sentences describing the problem from the user's perspective. No jargon. No references to the system.
+2 to 3 sentences describing the problem from the user's perspective. No jargon. No references to the system. A non-technical reader should feel the pain immediately.
+
+## Why Now
+
+1 to 2 sentences on why this is the right time to build this — business context, user demand, strategic priority, or cost of delay. This is what leadership needs to justify the investment.
 
 ## Who This Is For
 
@@ -98,9 +105,16 @@ User-visible edge cases only. Not implementation edge cases.
 - What happens if <realistic scenario>?
 - What happens if <another realistic scenario>?
 
+## Success Metrics
+
+How will we know this feature is working? Use concrete, measurable signals — not vague goals.
+
+- <Metric> — <target or direction>
+- <Metric> — <target or direction>
+
 ## Out Of Scope
 
-Explicit non-goals. Keeps the discussion focused.
+Explicit non-goals. Keeps the discussion focused and prevents scope creep during review.
 
 - <Thing we are not doing> — <why>
 
@@ -118,10 +132,13 @@ Things that need product input before moving to architecture.
 - A product lead can read the whole doc in under 3 minutes
 - No schema, columns, enums, or code anywhere in the doc
 - No file paths, no API signatures, no function names
-- Diagrams use realistic actors and realistic actions
-- Edge cases are user-visible, not internal
+- Diagrams use realistic actors and realistic actions, not abstract system labels
+- "Why Now" is specific — a stakeholder can use it to justify the sprint
+- Success metrics are measurable — not "improve UX" but "reduce drop-off on step 3 by 20%"
+- Edge cases are user-visible, not implementation edge cases
 - Open questions are explicit and not buried in the narrative
 - Out of scope is listed — silence is not a substitute for an explicit non-goal
+- **This doc is leadership's complete view. If they would want to know it, it belongs here.**
 
 ## Next Step
 
