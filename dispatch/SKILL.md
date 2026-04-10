@@ -16,7 +16,7 @@ Extends the host agent's native skill dispatch with three capabilities:
 
 1. **Skill & MCP Discovery** — Find and install skills/MCP servers you're missing
 2. **Lazy Prompt Expansion** — Turn vague requests into actionable specs
-3. **Pipeline Routing** — Detect deterministic vs agent work, then route to the right skill (`$grill-me`, `$user-flow`, `$arch-brief`, `$prd-to-issues`, `$tdd` standard or eval mode, `$cove`)
+3. **Pipeline Routing** — Detect deterministic vs agent work, then route to the right skill (`$grill-me`, `$user-flow`, `$arch-brief`, `$write-a-prd`, `$prd-to-issues`, `$tdd` standard or eval mode, `$cove`)
 
 You are NOT replacing the host agent's built-in skill system. You are layering on top of it.
 
@@ -166,33 +166,31 @@ Route the expanded task to the appropriate pipeline skill based on the dev cycle
 | Idea needs stress-testing before any docs | Pre-alignment | `$grill-me` |
 | Mon/Tue: need a user flow doc for business approval | Alignment 1 | `$user-flow` |
 | User flow approved, need architecture brief for Slack | Alignment 2 | `$arch-brief` |
-| Alignment done, need to break work into Linear issues | Issue breakdown | `$prd-to-issues` |
+| Arch brief approved, need full engineering spec | Spec | `$write-a-prd` |
+| Dev PRD ready, need to break into Linear issues | Issue breakdown | `$prd-to-issues` |
 | **Deterministic** implementation with tests | Build | `$tdd` (applies `$cove` for non-trivial GREEN steps) |
 | **Agent / LLM** implementation needing evals | Build | `$tdd` in **eval mode** — see `tdd/evals.md` |
 | **Hybrid** (agent + deterministic plumbing) | Build | `$tdd` — apply both loops in the same story |
 | Standalone non-trivial code generation | Build | `$cove` directly |
 | Large autonomous task (10+ files, full feature) | Build | `$ralph-loop` |
 | Open PR has accumulated AI reviewer comments to triage | Build / cleanup | `$pr-triage` |
-| Want a single combined PRD doc (legacy) | — | `$write-a-prd` (reference) |
 | Trivial one-liners, formatting, docs | — | Just do it — no routing needed |
 
 **Hard rule for agent work:** `$tdd` in eval mode is **not optional**. Per the team's dev cycle, every agent build includes prompt tuning + eval testing as part of the estimate from day one. Never route agent work to plain `$tdd` or `$cove` without flagging the eval requirement.
 
 **The full pipeline:**
 ```
-$grill-me → $user-flow → $arch-brief → $prd-to-issues → $tdd [issue-id]
-   idea      Mon-Tue:     Mon-Tue:        Tue:            Wed-Fri:
-              flow doc     arch brief     Linear epics    │
-              (business    (team           + stories       ├─ Deterministic → red-green-refactor
-              approval)    alignment)                      │                  + $cove on tricky GREEN
-                                                           │
-                                                           └─ Agent / LLM   → eval-driven loop
-                                                                              (golden dataset,
-                                                                               quality bar,
-                                                                               regression tracking)
+$grill-me → $user-flow → $arch-brief → $write-a-prd → $prd-to-issues → $tdd [issue-id]
+   idea      Mon-Tue:     Mon-Tue:       Tue:            Tue:            Wed-Fri:
+              flow doc     arch brief    full eng spec   Linear epics    │
+              (business    (team         (schemas, API   + stories       ├─ Deterministic → red-green-refactor
+              approval)    alignment)    contracts,                      │                  + $cove on tricky GREEN
+                                         module design)                  │
+                                                                         └─ Agent / LLM   → eval-driven loop
+                                                                                           (golden dataset,
+                                                                                            quality bar,
+                                                                                            regression tracking)
 ```
-
-`$write-a-prd` is preserved as a reference for the older single-doc PRD workflow but is not the default path.
 
 ---
 
@@ -253,14 +251,14 @@ $dispatch [task]
         ├─ $grill-me           → stress-test the idea
         ├─ $user-flow          → Mon-Tue: non-technical flow doc for business approval
         ├─ $arch-brief         → Mon-Tue: Slack-sized architecture brief for team alignment
-        ├─ $prd-to-issues      → break into Linear issues + workspace sequencing
+        ├─ $write-a-prd        → full engineering spec (schemas, API contracts, module design)
+        ├─ $prd-to-issues      → break dev PRD into Linear issues + workspace sequencing
         ├─ $tdd (standard)     → deterministic code: red-green-refactor + $cove
         ├─ $tdd (eval mode)    → agent / LLM work: golden dataset + quality bar (see tdd/evals.md)
         ├─ $tdd (hybrid)       → both loops in the same story
         ├─ $cove               → standalone verified code generation
         ├─ $ralph-loop         → autonomous multi-file execution
-        ├─ $pr-triage          → filter + address AI reviewer comments on the current PR
-        └─ $write-a-prd        → legacy single-doc PRD (kept as reference)
+        └─ $pr-triage          → filter + address AI reviewer comments on the current PR
 ```
 
 ---

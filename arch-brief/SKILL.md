@@ -44,7 +44,7 @@ Must fit in a Slack message. Granular detail belongs in sub-issues, not in the b
 
 8. Wait for the user's explicit "post it" confirmation before sending anything.
 
-9. Suggest `$prd-to-issues` as the next step once team alignment is confirmed.
+9. Suggest `$write-a-prd` as the next step once team alignment is confirmed — the full engineering spec lives there.
 
 ## Template
 
@@ -100,4 +100,4 @@ Things that could derail us or need more thought before we commit.
 
 ## Next Step
 
-After team alignment (async or via huddle), suggest `$prd-to-issues` to break the work into Linear issues with workspace sequencing.
+After team alignment (async or via huddle), suggest `$write-a-prd` to write the full engineering spec — schemas, API contracts, module interfaces, and testing decisions. Once the dev PRD is approved and submitted to Linear, suggest `$prd-to-issues` to break the work into epics and stories.

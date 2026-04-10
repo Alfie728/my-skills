@@ -1,33 +1,35 @@
 ---
 name: write-a-prd
-description: Create a PRD through user interview, codebase exploration, and module design, then optionally submit it to Linear after user review. Use when the user wants to write a PRD, create a product requirements document, or plan a new feature.
+description: Write the full engineering PRD after arch-brief is approved — includes schemas, API contracts, module interfaces, and testing strategy. Use when the team is aligned on the approach and needs a complete technical spec before breaking work into Linear issues.
 argument-hint: <feature-or-problem>
 metadata:
-  short-description: Draft a PRD from discovery through design
+  short-description: Full engineering spec after arch-brief approval
 ---
 
 # Write A PRD
 
 IMPORTANT: Never auto-commit. Never auto-submit to Linear without showing the PRD to the user first and getting confirmation.
 
-Use this skill when the user wants a serious feature spec, not just a quick implementation sketch.
+## When To Use
+
+After `$arch-brief` is approved and the team is aligned. Before `$prd-to-issues`. This is the full engineering spec — schemas, API contracts, module interfaces, data flow, and testing decisions. Leadership does not need to read this; it is written for the engineers building the feature.
 
 ## Process
 
-1. Ask the user for a detailed description of the problem, the desired outcome, and any existing solution ideas.
-2. Explore the repo to verify assumptions and understand the current codebase state.
-3. Interview the user until the major branches of the design are resolved.
+1. Pull in the approved `$arch-brief` from context. If no arch-brief exists yet, suggest `$arch-brief` first.
+2. Explore the repo to verify assumptions: existing models, APIs, patterns, and integration points.
+3. Interview the user until all implementation branches are resolved — especially schema decisions, interface contracts, and testing strategy.
 4. Sketch the major modules that will need to be built or changed. Look for deep modules with simple interfaces and testable boundaries.
 5. Confirm the module boundaries and ask which modules deserve focused testing.
-6. Ask where the PRD should live:
+6. Ask where the PRD should live in Linear:
    - New Linear project
    - Existing Linear project
    - Existing Linear issue
    - New issue under an existing parent
-7. If Linear is in scope, determine the correct team, project, and parent item.
+7. Determine the correct team, project, and parent item.
 8. Draft the PRD using the template below.
 9. Present the PRD for review. After approval, use Linear MCP tools or the Linear CLI to create or update the destination item.
-10. After submission, suggest `$prd-to-issues`.
+10. After submission, suggest `$prd-to-issues` to break the work into epics and stories.
 
 ## PRD Structure
 

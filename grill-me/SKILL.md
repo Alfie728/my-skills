@@ -37,6 +37,6 @@ When the interview reaches a natural conclusion and the plan is solid, suggest t
 
 - **Mon/Tue alignment phase, no docs yet** → suggest `$user-flow` to draft a non-technical user flow doc for business approval. This is the default starting point for new features.
 - **User flow already approved, need architecture write-up** → suggest `$arch-brief` for a Slack-sized architecture overview.
-- **Both alignment artifacts exist, need to break work into Linear issues** → suggest `$prd-to-issues`.
+- **Arch brief approved, need full engineering spec** → suggest `$write-a-prd` to write schemas, API contracts, module interfaces, and testing decisions. This is the dev-facing PRD before issue breakdown.
+- **Dev PRD complete, need to break work into Linear issues** → suggest `$prd-to-issues`.
 - **Scope is small and build-ready (no alignment needed)** → suggest `$tdd`.
-- **You explicitly want a single combined PRD doc instead of the split flow** → suggest `$write-a-prd` (kept as a reference for the older single-doc workflow).
